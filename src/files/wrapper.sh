@@ -427,7 +427,6 @@ json_add_string() {
   json_add_line "$(json_esc "$1")": "$(json_esc "$2")"
 }
 json_add_int() {
-  echo "json_add_int: $*" 1>&2
   json_add_line "$(json_esc "$1")": "$2"
 }
 json_dump() {

@@ -67,19 +67,25 @@ The following modules have been imported from [ansible-openwrt][ao]:
  * file
  * lineinfile
  * nohup (new)
+ * opkg
  * ping
  * setup
  * shell (implicit)
  * slurp
  * stat
+ * service
  * sysctl
  * template (implicit)
+
+These modules were added:
+
+ * apk
+ * modprobe
+ * service_facts
 
 These packages were removed as I found them too [openwrt][ow]
 specific.
 
- * opkg
- * service
  * uci (new)
  * wait\_for\_connection (implicit)
 

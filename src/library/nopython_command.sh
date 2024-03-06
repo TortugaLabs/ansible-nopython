@@ -43,7 +43,6 @@ main() {
     }
 
     ts_start="$(date +%s)"
-    set -x ; exec 2>/tmp/stderr
 
     if [ -z "${stdin_add_newline:-}" ] ; then
       echo -n "${stdin:-}" > "$inp"
