@@ -13,8 +13,8 @@ query_package() {
 }
 
 install_packages() {
-  local _IFS pkg
-  _IFS="$IFS"; IFS=","; set -- $name; IFS="$_IFS"
+  local pkg
+  set -- $name
   for pkg; do
     ! query_package "$pkg" || continue
     [ -n "$_ansible_check_mode" ] || {
@@ -26,8 +26,8 @@ install_packages() {
 }
 
 remove_packages() {
-  local _IFS pkg
-  _IFS="$IFS"; IFS=","; set -- $name; IFS="$_IFS"
+  local pkg
+  set -- $name
   for pkg; do
     query_package "$pkg" || continue
     [ -n "$_ansible_check_mode" ] || {
@@ -47,6 +47,9 @@ main() {
     esac
 
     [ -z "$update_cache" -o -n "$_ansible_check_mode" ] || try apk update
+
+    name=$(echo "$name" | tr  \'',[]' '    ')
+
     case "$state" in
         present|installed) install_packages;;
         absent|removed) remove_packages;;

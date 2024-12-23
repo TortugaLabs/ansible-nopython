@@ -74,7 +74,7 @@ generic_facts() {
 
   if [ -f /etc/os-release ] ; then
     . /etc/os-release
-    json_add_string ansible_distribution "${NAME:-Linux}"
+    json_add_string ansible_distribution "$(echo ${NAME:-Linux}|cut -d' ' -f1)"
     if [ -n ${VERSION_ID:-} ] ; then
       dist_major="${VERSION_ID%%.*}"
       json_add_string ansible_distribution_major_version "$dist_major"
@@ -86,7 +86,10 @@ generic_facts() {
       json_add_string ansible_distribution_release "${VERSION_ID%.*}"
     fi
     case "${ID:-}" in
-      alpine) json_add_string ansible_os_family "Alpine" ;;
+      alpine)
+	json_add_string ansible_os_family "Alpine"
+	json_add_string ansible_pkg_mgr "apk"
+	;;
       *) json_add_string ansible_os_family "$(uname -o)" ;;
     esac
   else
@@ -121,7 +124,7 @@ generic_ansible_date_time() {
     json_add_string epoch_int "$(date +'%s' | cut -d. -f 1)"
     json_add_string iso8601 "$(date -Is)"
   json_close_object # ansible_date_time
-  
+
 }
 
 generic_main() {

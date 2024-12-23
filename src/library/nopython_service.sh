@@ -220,7 +220,7 @@ main() {
     #
     # Alpine Linux implementation
     #
-    [ ! -f "/etc/init.d/$name" ] && fail "service $name does not exist"
+    [ ! -f "/etc/init.d/$name" ] && fail "Could not find the requested service.  service $name does not exist"
     # test if enabled was specified, if so, call apk_set_enabled
     [ -z "${_orig_enabled:-}" ] || apk_set_enabled
     [ -z "${state:-}" ] || apk_set_state
